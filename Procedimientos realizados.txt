@@ -1,0 +1,30 @@
+Crear la BD Espacial - pgAdmin
+    Ejecutamos la consulta para crear la extension PostGIS: 
+        CREATE EXTENSION postgis;
+Cargamos la BD Espacial - shp2sql
+    Cargamos las capas a la BD
+        Configurar conexion
+            usuario y contraseña user user
+            nombre de DB
+        Importar y se carga la BD con las capas
+
+Crear un proyecto QGIS y guardarlo - tener en cuenta la direccion del proyecto a la hora de realizar las demas configuraciones
+    
+Cargamos al QGIS las capas
+    Desde QGIS seleccionamos CAPAS - Administrador de fuentes de datos - PostgridSQL
+        Creamos una nueva conexion 
+            nombre 
+            anfitrion = 127.0.0.1
+            Base de datos = BD (creada anteriormente)
+
+Configuracion WMS/WMTS
+    Crear una nueva 
+        nombre = unNombre
+        url = http://127.0.0.1/cgi-bin/qgis_mapserv.fcgi?map=/home/user/Trabajo Practico Integrador/TrabajoPracticoIntegrador.qgz
+        usuario y contraseña = user user
+        conectar - devuelve las capas
+    Probar el WMS - la URL en el navegador
+    http://127.0.0.1/cgi-bin/qgis_mapserv.fcgi?map=/home/user/Trabajo%20Practico%20Integrador/TrabajoPracticoIntegrador.qgz&SERVICE=WMS&REQUEST=getcapabilities
+
+
+SIMBOLOGIA
