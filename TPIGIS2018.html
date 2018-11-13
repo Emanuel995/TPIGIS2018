@@ -32,11 +32,26 @@
         <div id="map"></div>
         <div id="panel">
                 <h3><img src="imagenes/capas.jpg" width="75" height="75">Capas</h3>
-                <input type="checkbox" id="check_layer_1"><label for="check_layer_1"> Espejos de Agua</label><br/>
-                <input type="checkbox" id="check_layer_2"><label for="check_layer_2"> Red Vial</label><br/>
-                <input type="checkbox" id="check_layer_3"><label for="check_layer_3"> Vegetacion Cultivos</label><br/>
-                <input type="checkbox" id="check_layer_4"><label for="check_layer_4"> Vegetacion Arborea</label><br/>
-                <input type="checkbox" id="check_layer_5"><label for="check_layer_5"> Vegetacion Hidrofila</label><br/>
+                <script>
+                    var capas = [
+                        "actividades_agropecuarias", "actividades_economicas", "complejo_de_energia_ene", 
+                        "curso_de_agua_hid", "curvas_de_nivel", "edif_construcciones_turisticas",
+                        "edif_depor_y_esparcimiento","edif_educacion", "edif_religiosos", "edificio_de_salud_ips",
+                        "edificio_de_seguridad_ips","edificio_publico_ips","edificios_ferroviarios", "ejido","espejo_de_agua_hid",
+                        "estructuras_portuarias","infraestructura_aeroportuaria_punto","infraestructura_hidro","isla","limite_politico_administrativo_lim",
+                        "localidades","líneas_de_conducción_ene","marcas_y_señales","muro_embalse","obra_de_comunicación", "obra_portuaria","otras_edificaciones",
+                        "pais_lim","provincias","puente_red_vial_puntos","puntos_de_alturas_topograficas", "puntos_del_terreno","red_ferroviaria","red_vial","salvado_de_obstaculo", 
+                        "señalizaciones","sue_congelado","sue_consolidado","sue_costero","sue_hidromorfologico","sue_no_consolidado","veg_arborea","veg_arbustiva","veg_cultivos","veg_hidrofila",
+                        "veg_suelo_desnudo","vias_secundarias"                                                          
+                    ]
+                    for (i = 0; i < capas.length; i++){ 
+                        var layer = ""                           
+                        nombre = capas[i];
+                        layer = "check_layer_"+(i+1);
+                        text = "<input type=checkbox id="+layer+"><label for="+layer+">"+nombre+"</label><br/>";
+                        document.write(layer,text)
+                    }
+                </script>
                 
                 <!-- Radio buttons para cambiar las interacciones activas -->
                 <h3><img src="imagenes/controles.jpg" width="75" height="75">
@@ -134,8 +149,8 @@
                 ],
                 view: new ol.View({
                     projection: 'EPSG:4326',
-                    center: [-59, -27.5],
-                    zoom: 6
+                    center: [-60, -26.5],
+                    zoom: 7
                  })
              });
             
