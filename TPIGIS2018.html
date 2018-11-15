@@ -25,7 +25,7 @@
     var NombreCapas = [
         "puente_red_vial_puntos","puntos_de_alturas_topograficas","puntos_del_terreno","salvado_de_obstaculo",
         "senalizaciones","otras_edificaciones","estructuras_portuarias","infraestructura_aeroportuaria_punto","infraestructura_hidro",
-        "actividades_agropecuarias","actividades_economicas","compleo_de_energia_ene","edif_contrucciones_turisticas","edif_depor_y_esparcimiento",
+        "actividades_agropecuarias","actividades_economicas","complejo_de_energia_ene","edif_construcciones_turisticas","edif_depor_y_esparcimiento",
         "edif_educacion","edif_religiosos","edificio_de_salud_ips","edificio_publico_ips","edificios_ferroviarios","localidades",
         "marcas_y_senales","obra_de_comunicacion","obra_portuaria","red_ferroviaria","red_vial","vias_secundarias","curso_de_agua_hid",
         "curvas_de_nivel","lineas_de_conduccion_ene","muro_embalse","limite_politico_administrativo_lim","espejo_de_agua_hid",
@@ -62,7 +62,7 @@
                     Titulo = TituloCapas[i];
                     layer = "check_layer_"+(i+1);
                     text = "<input type=checkbox id="+layer+"><label for="+layer+">"+Titulo+"</label><br/>";
-                    document.write(text)
+                    document.write(layer,text)
                 }
             </script>
             
@@ -181,20 +181,20 @@
                 params: {LAYERS: 'actividades_economicas'}//por defecto version WMS = 1.3.0
             })
         })
-        var compleo_de_energia_ene= new ol.layer.Image({//objeto capa de tipo Imagen (1 sola imagen)
-            title: "compleo_de_energia_ene",
+        var complejo_de_energia_ene= new ol.layer.Image({//objeto capa de tipo Imagen (1 sola imagen)
+            title: "complejo_de_energia_ene",
             visible: false,
             source: new ol.source.ImageWMS({//fuente de datos (ImageWMS)
                 url: URL_OGC,
-                params: {LAYERS: 'compleo_de_energia_ene'}//por defecto version WMS = 1.3.0
+                params: {LAYERS: 'complejo_de_energia_ene'}//por defecto version WMS = 1.3.0
             })
         })
-        var edif_contrucciones_turisticas= new ol.layer.Image({//objeto capa de tipo Imagen (1 sola imagen)
-            title: "edif_contrucciones_turisticas",
+        var edif_construcciones_turisticas= new ol.layer.Image({//objeto capa de tipo Imagen (1 sola imagen)
+            title: "edif_construcciones_turisticas",
             visible: false,
             source: new ol.source.ImageWMS({//fuente de datos (ImageWMS)
                 url: URL_OGC,
-                params: {LAYERS: 'edif_contrucciones_turisticas'}//por defecto version WMS = 1.3.0
+                params: {LAYERS: 'edif_construcciones_turisticas'}//por defecto version WMS = 1.3.0
             })
         })
         var edif_depor_y_esparcimiento= new ol.layer.Image({//objeto capa de tipo Imagen (1 sola imagen)
@@ -463,15 +463,50 @@
                         }
                     })
                 }),
-                puente_red_vial_puntos, puntos_de_alturas_topograficas, puntos_del_terreno, salvado_de_obstaculo,
-                senalizaciones, otras_edificaciones, estructuras_portuarias, infraestructura_aeroportuaria_punto, infraestructura_hidro,
-                actividades_agropecuarias, actividades_economicas, compleo_de_energia_ene, edif_contrucciones_turisticas, edif_depor_y_esparcimiento,
-                edif_educacion, edif_religiosos, edificio_de_salud_ips, edificio_publico_ips, edificios_ferroviarios, localidades,
-                marcas_y_senales, obra_de_comunicacion, obra_portuaria, red_ferroviaria, vias_secundarias,curso_de_agua_hid,
-                curvas_de_nivel,lineas_de_conduccion_ene,muro_embalse,limite_politico_administrativo_lim, ejido,
-                isla,sue_congelado,sue_consolidado,sue_costero,sue_hidromorfologico,sue_no_consolidado,
-                veg_arbustiva,veg_suelo_desnudo, espejo_de_agua, red_vial, veg_arborea, veg_hidrofila, veg_cultivos
-
+                    puente_red_vial_puntos,
+                    puntos_de_alturas_topograficas,
+                    puntos_del_terreno,
+                    salvado_de_obstaculo,
+                    senalizaciones,
+                    otras_edificaciones,
+                    estructuras_portuarias,
+                    infraestructura_aeroportuaria_punto,
+                    infraestructura_hidro,
+                    actividades_agropecuarias,
+                    actividades_economicas,
+                    complejo_de_energia_ene,
+                    edif_construcciones_turisticas,
+                    edif_depor_y_esparcimiento,
+                    edif_educacion,
+                    edif_religiosos,
+                    edificio_de_salud_ips,
+                    edificio_publico_ips,
+                    edificios_ferroviarios,
+                    localidades,
+                    marcas_y_senales,
+                    obra_de_comunicacion,
+                    obra_portuaria,
+                    red_ferroviaria,
+                    red_vial,
+                    vias_secundarias,
+                    curso_de_agua_hid,
+                    curvas_de_nivel,
+                    lineas_de_conduccion_ene,
+                    muro_embalse,
+                    limite_politico_administrativo_lim,
+                    espejo_de_agua,
+                    ejido,
+                    isla,
+                    sue_congelado,
+                    sue_consolidado,
+                    sue_costero,
+                    sue_hidromorfologico,
+                    sue_no_consolidado,
+                    veg_arborea,
+                    veg_arbustiva,
+                    veg_cultivos,
+                    veg_hidrofila,
+                    veg_suelo_desnudo
             ],
             view: new ol.View({
                 projection: 'EPSG:4326',
@@ -696,11 +731,11 @@ checkbox11.checked = visible;
 var checkbox12 = document.getElementById('check_layer_12');
 checkbox12.addEventListener('change',function() {
 var checked = this.checked;
-if (checked !== compleo_de_energia_ene.getVisible()){
-compleo_de_energia_ene.setVisible(checked);
+if (checked !== complejo_de_energia_ene.getVisible()){
+complejo_de_energia_ene.setVisible(checked);
 }
 });
-compleo_de_energia_ene.on('change:visible', function(){
+complejo_de_energia_ene.on('change:visible', function(){
 var visible = this.getVisible();
 if (visible !== checkbox12.checked){
 checkbox12.checked = visible;
@@ -709,11 +744,11 @@ checkbox12.checked = visible;
 var checkbox13 = document.getElementById('check_layer_13');
 checkbox13.addEventListener('change',function() {
 var checked = this.checked;
-if (checked !== edif_contrucciones_turisticas.getVisible()){
-edif_contrucciones_turisticas.setVisible(checked);
+if (checked !== edif_construcciones_turisticas.getVisible()){
+edif_construcciones_turisticas.setVisible(checked);
 }
 });
-edif_contrucciones_turisticas.on('change:visible', function(){
+edif_construcciones_turisticas.on('change:visible', function(){
 var visible = this.getVisible();
 if (visible !== checkbox13.checked){
 checkbox13.checked = visible;
@@ -1122,73 +1157,7 @@ if (visible !== checkbox44.checked){
 checkbox44.checked = visible;
 }
 });
-/*        
-    var checkbox1 = document.getElementById('check_layer_1');
-        checkbox1.addEventListener('change', function () {
-            var checked = this.checked;
-            if (checked !== puente_red_vial_puntos.getVisible()) {
-                puente_red_vial_puntos.setVisible(checked);
-            }
-        });
-        puente_red_vial_puntos.on('change:visible', function () {
-            var visible = this.getVisible();
-            if (visible !== checkbox1.checked) {
-                checkbox1.checked = visible;
-            }
-    });
-    var checkbox2 = document.getElementById('check_layer_2');
-        checkbox2.addEventListener('change', function () {
-            var checked = this.checked;
-            if (checked !== puntos_de_alturas_topograficas.getVisible()) {
-                puntos_de_alturas_topograficas.setVisible(checked);
-            }
-        });
-        puntos_de_alturas_topograficas.on('change:visible', function () {
-            var visible = this.getVisible();
-            if (visible !== checkbox2.checked) {
-                checkbox2.checked = visible;
-            }
-    });   
-    var checkbox3 = document.getElementById('check_layer_3');
-        checkbox3.addEventListener('change', function () {
-            var checked = this.checked;
-            if (checked !== puntos_del_terreno.getVisible()) {
-                puntos_del_terreno.setVisible(checked);
-            }
-        });
-        puntos_del_terreno.on('change:visible', function () {
-            var visible = this.getVisible();
-            if (visible !== checkbox3.checked) {
-                checkbox3.checked = visible;
-            }
-    });
-    var checkbox4 = document.getElementById('check_layer_4');
-        checkbox4.addEventListener('change', function () {
-            var checked = this.checked;
-            if (checked !== salvado_de_obstaculo.getVisible()) {
-                salvado_de_obstaculo.setVisible(checked);
-            }
-        });
-        salvado_de_obstaculo.on('change:visible', function () {
-            var visible = this.getVisible();
-            if (visible !== checkbox4.checked) {
-                checkbox4.checked = visible;
-            }
-    });
-    var checkbox5 = document.getElementById('check_layer_5');
-        checkbox5.addEventListener('change', function () {
-            var checked = this.checked;
-            if (checked !== senalizaciones.getVisible()) {
-                senalizaciones.setVisible(checked);
-            }
-        });
-        senalizaciones.on('change:visible', function () {
-            var visible = this.getVisible();
-            if (visible !== checkbox5.checked) {
-                checkbox5.checked = visible;
-            }
-    });
- */ 
+
 /* Generador de codigo para las VARIABLES de los checkbox
 
     for (i = 0; i < NombreCapas.length; i++){
