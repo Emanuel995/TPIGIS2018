@@ -995,7 +995,7 @@ if (checked !== espejo_de_agua.getVisible()){
 espejo_de_agua.setVisible(checked);
 }
 });
-espejo_de_agua_hid.on('change:visible', function(){
+espejo_de_agua.on('change:visible', function(){
 var visible = this.getVisible();
 if (visible !== checkbox32.checked){
 checkbox32.checked = visible;
@@ -1157,8 +1157,8 @@ if (visible !== checkbox44.checked){
 checkbox44.checked = visible;
 }
 });
-
-/* Generador de codigo para las VARIABLES de los checkbox
+/*
+//Generador de codigo para las VARIABLES de los checkbox
 
     for (i = 0; i < NombreCapas.length; i++){
         text=       "var checkbox"+(i+1)+" = document.getElementById('check_layer_"+(i+1)+"');<br/>"+
@@ -1176,7 +1176,7 @@ checkbox44.checked = visible;
                 "});"+"<br/>"
         document.write(text)        
             };
- */       
+*/     
 
         
         
