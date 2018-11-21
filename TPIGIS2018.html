@@ -2,26 +2,15 @@
 <html lang="en">
 <head>
     <!-- archivo CSS con los estilos propios de OpenLayers (href con ruta relativa) -->
-    <link rel="stylesheet" href="ol4/css/ol.css" type="text/css">
-
-    <style>
-        /* selector CSS #map: selecciona cualquier elemento con id="map" */
-        #map {
-            height: 400px;	/* alto del elemento = 400px */
-            width: 100%;	/* ancho del elemento = 100% de su elemento contenedor */
-            border: 1px solid; /* borde 1px */
-        }
-    </style>
-    <!-- Titulo de la paginan -->
-    <title>Trabajo Practico Integrador GIS 2018</title>
-    <!-- tag script que incluye el archivo .js que contiene la libreria -->
-    <script src="ol4/build/ol.js" type="text/javascript"></script>
-    <!-- script con la url del servicio WMS-->
-    <script src="url.js" type="text/javascript"></script>
-    <!-- script la libreria JQuery-->
-    <script src="jquery.min.js" type="text/javascript"></script>
-    <script>
-    //Nombre y Titulos de las CAPAS
+<link rel="stylesheet" href="ol4/css/ol.css" type="text/css">
+<link rel="stylesheet" href="css/bootstrap.min.css"> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="jquery.min.js" type="text/javascript"></script>
+<script src="ol4/build/ol.js" type="text/javascript"></script>
+<script src="url.js" type="text/javascript"></script>
+<script>
     var NombreCapas = [
         "puente_red_vial_puntos","puntos_de_alturas_topograficas","puntos_del_terreno","salvado_de_obstaculo",
         "senalizaciones","otras_edificaciones","estructuras_portuarias","infraestructura_aeroportuaria_punto","infraestructura_hidro",
@@ -42,52 +31,99 @@
         "Ejido","Isla","Suelo congelado","Suelo consolidado","Suelo costero","Suelo hidromorfologico","Suelo no consolidado",
         "Vegetacion arborea","Vegetacion arbustiva","Vegetacion de cultivos","Vegetacion hidrofila","Vegetacion de suelo desnudo"
     ]
-    </script>
-    
+</script>
+<style>
+    /* selector CSS #map: selecciona cualquier elemento con id="map" */
+    #map {
+        height: 600px;	/* alto del elemento = 400px */
+        width: 1200px;	/* ancho del elemento = 100% de su elemento contenedor */
+        border: 1px solid; /* borde 1px */
+    }
+</style>
+<style>
+        .divScroll {
+        overflow:scroll;
+        height:400px;
+        width:275px;
+    }
+</style>
+<style>
+    .flex-container {
+        display: flex;
+        align-items: stretch;
+    }
+    .flex-container > div {
+        width: 3000px;
+        margin: 10px;
+        ;
+        }
+        .jumbotron{
+            max-height: 50px !important;
+        }
+    </style>
+<title>Trabajo Practico Integrador GIS 2018</title>
 </head>
 
 <body>
     <!--Imagen Soy el MAPA y TITULO-->
-    <h1><img src="imagenes/soyelmapa.jpeg" width="75" height="75">
-        Trabajo Practico Integrador GIS 2018 </h1>
+    <div class="jumbotron bg-secondary text-white height:80px">
+        <h1><img src="imagenes/soyelmapa.jpeg" width="75" height="75"> Trabajo Practico Integrador GIS 2018 </h1>
+        <h4>Trabajo Practico integrador para la materia Sistemas de Informaci&oacute;n geogr&aacute;fico, a&ntilde;o 2018 -  UTN Facultad Regional Resistencia
+        </h4>
+    </div>
+    
     
     <!-- DIV que contiene el mapa -->
-    <div id="map"></div>
-    <div id="panel">
-            <h3><img src="imagenes/capas.jpg" width="75" height="75">Capas</h3>
-            <script>
-                //Cargamos la capas
-                for (i = 0; i < TituloCapas.length; i++){ 
-                    var layer = ""                           
-                    Titulo = TituloCapas[i];
-                    layer = "check_layer_"+(i+1);
-                    text = "<input type=checkbox id="+layer+"><label for="+layer+">"+Titulo+"</label><br/>";
-                    document.write(layer,text)
-                }
-            </script>
-            
-            <!-- Radio buttons para cambiar las interacciones activas -->
-            <h3><img src="imagenes/controles.jpg" width="75" height="75">
-                Controles</h3>
-            <!-- evento onchange: ejecuta la funcion seleccionarControl -->
-            <input
-                type="radio"
-                name="controles"
-                id="controles_navegacion"
-                value="navegacion"
-                checked="checked"
-                onchange="seleccionarControl(this)"
 
-            > <label for="controles_navegacion"> Navegacion</label><br/>
-        <input
-            type="radio"
-            name="controles"
-            id="controles_consulta"
-            value="consulta"
-            onchange="seleccionarControl(this)"
-            > <label for="controles_consulta"> Consulta</label><br/>
+<div class="flex-container">
+    <div class=row>
+            <div class="flex-grow: 2" id="panel">
+                    <!-- Radio buttons para cambiar las interacciones activas -->
+                    <h3>Controles</h3>
+                    <!-- evento onchange: ejecuta la funcion seleccionarControl -->
+                    <input
+                        type="radio"
+                        name="controles"
+                        id="controles_navegacion"
+                        value="navegacion"
+                        checked="checked"
+                        onchange="seleccionarControl(this)"
+        
+                    > <label for="controles_navegacion"> Navegacion</label><br/>
+                    <input
+                        type="radio"
+                        name="controles"
+                        id="controles_consulta"
+                        value="consulta"
+                        onchange="seleccionarControl(this)"
+                        > <label for="controles_consulta"> Consulta</label><br/>
+                    <h3>Capas</h3>
+                    <div class="divScroll">
+                    <script>
+                        //Cargamos la capas
+                        for (i = 0; i < TituloCapas.length; i++){ 
+                            var layer = ""                           
+                            Titulo = TituloCapas[i];
+                            layer = "check_layer_"+(i+1);
+                            text = "<input type=checkbox id="+layer+"><label for="+layer+">"+Titulo+"</label><br/>";
+                            document.write(text)
+                        }
+                    </script>
+                    </div>
+        
+                </div>
+        <div class="flex-grow: 8" id="map"></div>
+        
+    </div>
+</div>
 
+<div class="jumbotron  bg-secondary text-white " >
+        <div class="d-flex align-items-center justify-content-center">
+            <h5 class="font-weight-bold text-center "> BEJARANO Evelyn -- GUOUMAN Emiliano -- HUERGA Emanuel</h5>
         </div>
+            
+</div>
+
 
     <!-- SCRIPT que crea el mapa y sus capas -->
     <script type="text/javascript">
@@ -405,7 +441,6 @@
                 params: {LAYERS: 'veg_suelo_desnudo'}//por defecto version WMS = 1.3.0
             })
         })
-        
         var espejo_de_agua= new ol.layer.Image({//objeto capa de tipo Imagen (1 sola imagen)
                 title: "espejo_de_agua_hid",
                 visible: false,
@@ -1180,6 +1215,6 @@ checkbox44.checked = visible;
 
         
         
-     </script>
+    </script>
  </body>
 </html>
