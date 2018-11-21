@@ -1,6 +1,26 @@
 //SCRIPT que crea las capas
 //<script src="ol4/build/ol.js" type="text/javascript"></script>
 //<script src="url.js" type="text/javascript"></script>
+var NombreCapas = [
+    "puente_red_vial_puntos","puntos_de_alturas_topograficas","puntos_del_terreno","salvado_de_obstaculo",
+    "senalizaciones","otras_edificaciones","estructuras_portuarias","infraestructura_aeroportuaria_punto","infraestructura_hidro",
+    "actividades_agropecuarias","actividades_economicas","complejo_de_energia_ene","edif_construcciones_turisticas","edif_depor_y_esparcimiento",
+    "edif_educacion","edif_religiosos","edificio_de_salud_ips","edificio_publico_ips","edificios_ferroviarios","localidades",
+    "marcas_y_senales","obra_de_comunicacion","obra_portuaria","red_ferroviaria","red_vial","vias_secundarias","curso_de_agua_hid",
+    "curvas_de_nivel","lineas_de_conduccion_ene","muro_embalse","limite_politico_administrativo_lim","espejo_de_agua_hid",
+    "ejido","isla","sue_congelado","sue_consolidado","sue_costero","sue_hidromorfologico","sue_no_consolidado","veg_arborea",
+    "veg_arbustiva","veg_cultivos","veg_hidrofila","veg_suelo_desnudo"
+];
+var TituloCapas = [
+    "Puente Red Vial","Alturas Topograficas","Puntos Del Terreno","Salvado De Obstaculo","Senalizaciones",
+    "Otras Edificaciones","Estructuras Portuarias","Infraestructura Aeroportuaria","Infraestructura Hidrologica","Actividades Agropecuarias",
+    "Actividades Economicas","Complejo De Energia","Edificios Contrucciones y Turisticas","Edificios Deporivos y Esparcimiento",
+    "Edificios Educativos","Edificios Religiosos","Edificios de Salud","Edificios Publicos","Edificios Ferroviarios",
+    "Localidades","Marcas y senales","Obra de Comunicacion","Obra Portuaria","Red Ferroviaria","Red Vial","Vias Secundarias",
+    "Curso de agua","Curvas de nivel","Lineas de conduccion","Muro de embalse","Limite politico administrativo","Espejo de agua",
+    "Ejido","Isla","Suelo congelado","Suelo consolidado","Suelo costero","Suelo hidromorfologico","Suelo no consolidado",
+    "Vegetacion arborea","Vegetacion arbustiva","Vegetacion de cultivos","Vegetacion hidrofila","Vegetacion de suelo desnudo"
+];
 
 
         var puente_red_vial_puntos= new ol.layer.Image({//objeto capa de tipo Imagen (1 sola imagen)

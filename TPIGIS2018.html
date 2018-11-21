@@ -1,37 +1,14 @@
 <!doctype html>
 <html lang="en">
 <head >
-    <!-- archivo CSS con los estilos propios de OpenLayers (href con ruta relativa) -->
 <link rel="stylesheet" href="ol4/css/ol.css" type="text/css">
 <link rel="stylesheet" href="css/bootstrap.min.css"> 
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script> -->
 <script src="js/bootstrap.min.js"></script> 
 <script src="jquery.min.js" type="text/javascript"></script>
 <script src="ol4/build/ol.js" type="text/javascript"></script>
 <script src="url.js" type="text/javascript"></script>
-<script>
-    var NombreCapas = [
-        "puente_red_vial_puntos","puntos_de_alturas_topograficas","puntos_del_terreno","salvado_de_obstaculo",
-        "senalizaciones","otras_edificaciones","estructuras_portuarias","infraestructura_aeroportuaria_punto","infraestructura_hidro",
-        "actividades_agropecuarias","actividades_economicas","complejo_de_energia_ene","edif_construcciones_turisticas","edif_depor_y_esparcimiento",
-        "edif_educacion","edif_religiosos","edificio_de_salud_ips","edificio_publico_ips","edificios_ferroviarios","localidades",
-        "marcas_y_senales","obra_de_comunicacion","obra_portuaria","red_ferroviaria","red_vial","vias_secundarias","curso_de_agua_hid",
-        "curvas_de_nivel","lineas_de_conduccion_ene","muro_embalse","limite_politico_administrativo_lim","espejo_de_agua_hid",
-        "ejido","isla","sue_congelado","sue_consolidado","sue_costero","sue_hidromorfologico","sue_no_consolidado","veg_arborea",
-        "veg_arbustiva","veg_cultivos","veg_hidrofila","veg_suelo_desnudo"
-    ]
-    var TituloCapas = [
-        "Puente Red Vial","Alturas Topograficas","Puntos Del Terreno","Salvado De Obstaculo","Senalizaciones",
-        "Otras Edificaciones","Estructuras Portuarias","Infraestructura Aeroportuaria","Infraestructura Hidrologica","Actividades Agropecuarias",
-        "Actividades Economicas","Complejo De Energia","Edificios Contrucciones y Turisticas","Edificios Deporivos y Esparcimiento",
-        "Edificios Educativos","Edificios Religiosos","Edificios de Salud","Edificios Publicos","Edificios Ferroviarios",
-        "Localidades","Marcas y senales","Obra de Comunicacion","Obra Portuaria","Red Ferroviaria","Red Vial","Vias Secundarias",
-        "Curso de agua","Curvas de nivel","Lineas de conduccion","Muro de embalse","Limite politico administrativo","Espejo de agua",
-        "Ejido","Isla","Suelo congelado","Suelo consolidado","Suelo costero","Suelo hidromorfologico","Suelo no consolidado",
-        "Vegetacion arborea","Vegetacion arbustiva","Vegetacion de cultivos","Vegetacion hidrofila","Vegetacion de suelo desnudo"
-    ]
-</script>
+<script src="GenerarVarCapas.js"></script>
+
 <style>
     /* selector CSS #map: selecciona cualquier elemento con id="map" */
     #map {
@@ -41,15 +18,11 @@
         padding-right: 1%;
         padding-right: 1%;
     }
-</style>
-<style>
-        .divScroll {
+    .divScroll {
         overflow:scroll;
         height:450px;
         width:275px;
     }
-</style>
-<style>
     .flex-container {
         display: flex;
         align-items: stretch;
@@ -57,13 +30,7 @@
     .flex-container > div {
         width: 3000px;
         padding-left: 2%;
-        ;
-        }
-
-    </style>
-<title>Trabajo Practico Integrador GIS 2018</title>
-<!-- <div class="jumbotron bg-secondary text-white "> -->
-<style>
+    }
     #Encabezado{
         max-width: 5000px !important;
         max-height: 75px !important;
@@ -76,6 +43,7 @@
         padding-bottom:2%;
     }
 </style>
+<title>Trabajo Practico Integrador GIS 2018</title>
 <div id = "Encabezado" class = "jumbotron bg-secondary text-white">
     <h1 class="align-top"><img src="imagenes/soyelmapa.jpeg" width="75" height="75"> Trabajo Practico Integrador GIS 2018 - UTN FRRe</h1>
 </div>
@@ -128,9 +96,8 @@
 <div id = "Pie" class="jumbotron  bg-secondary text-white" >
     <h5 class="font-weight-bold text-center" class="d-flex align-items-center justify-content-center"> BEJARANO Evelyn -- GUOUMAN Emiliano -- HUERGA Emanuel</h5>
 </div>
-
-<script src="GenerarVarCapas.js"></script>
 <script>
+
 // definicion del mapa y su capa
         var map = new ol.Map({
             target: 'map',                
@@ -267,27 +234,6 @@
             console.log(el.value);
         };
 </script>      
-<script src="GenerarCheckbox.js">
-/*
-//Generador de codigo para las VARIABLES de los checkbox
-
-    for (i = 0; i < NombreCapas.length; i++){
-        text=       "var checkbox"+(i+1)+" = document.getElementById('check_layer_"+(i+1)+"');<br/>"+
-                    "checkbox"+(i+1)+".addEventListener('change',function() {<br/>"+
-                    "var checked = this.checked;<br/>"+
-                    "if (checked !== "+NombreCapas[i]+".getVisible()){<br/>"+
-                    NombreCapas[i]+".setVisible(checked);<br/>"+
-                    "}<br/>"+
-                "});<br/>"+
-                NombreCapas[i]+".on('change:visible', function(){<br/>"+
-                    "var visible = this.getVisible();<br/>"+
-                    "if (visible !== checkbox"+(i+1)+".checked){<br/>"+
-                        "checkbox"+(i+1)+".checked = visible;<br/>"+
-                    "}<br/>"+
-                "});"+"<br/>"
-        document.write(text)        
-            };
-*/     
-</script>
+<script src="GenerarCheckbox.js"> </script>
 </body>
 </html>

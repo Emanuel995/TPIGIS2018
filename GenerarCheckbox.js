@@ -1,3 +1,23 @@
+/*
+//Generador de codigo para las VARIABLES de los checkbox
+
+    for (i = 0; i < NombreCapas.length; i++){
+        text=       "var checkbox"+(i+1)+" = document.getElementById('check_layer_"+(i+1)+"');<br/>"+
+                    "checkbox"+(i+1)+".addEventListener('change',function() {<br/>"+
+                    "var checked = this.checked;<br/>"+
+                    "if (checked !== "+NombreCapas[i]+".getVisible()){<br/>"+
+                    NombreCapas[i]+".setVisible(checked);<br/>"+
+                    "}<br/>"+
+                "});<br/>"+
+                NombreCapas[i]+".on('change:visible', function(){<br/>"+
+                    "var visible = this.getVisible();<br/>"+
+                    "if (visible !== checkbox"+(i+1)+".checked){<br/>"+
+                        "checkbox"+(i+1)+".checked = visible;<br/>"+
+                    "}<br/>"+
+                "});"+"<br/>"
+        document.write(text)        
+            };
+*/   
 var checkbox1 = document.getElementById('check_layer_1');
 checkbox1.addEventListener('change',function() {
 var checked = this.checked;
