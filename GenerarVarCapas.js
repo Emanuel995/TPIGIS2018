@@ -374,4 +374,53 @@ var TituloCapas = [
                 url: URL_OGC,
                 params: {LAYERS: 'veg_hidrofila'}//por defecto version WMS = 1.3.0
                     })
+                })
+      var localidades_chaco= new ol.layer.Image({//objeto capa de tipo Imagen (1 sola imagen)
+                title: "lcalidades_chaco",
+                visible: false,
+                source: new ol.source.ImageWMS({//fuente de datos (ImageWMS)
+                    url: URL_OGC,
+                    params: {LAYERS: 'localidades_chaco'}//por defecto version WMS = 1.3.0
+                    })
+                })
+      var areadecobertura= new ol.layer.Image({//objeto capa de tipo Imagen (1 sola imagen)
+                title: "areadecobertura",
+                visible: false,
+                source: new ol.source.ImageWMS({//fuente de datos (ImageWMS)
+                    url: URL_OGC,
+                    params: {LAYERS: 'areadecobertura'}//por defecto version WMS = 1.3.0
+                    })
+                })
+      var rn11_untramo= new ol.layer.Image({//objeto capa de tipo Imagen (1 sola imagen)
+                title: "rn11_untramo",
+                visible: false,
+                source: new ol.source.ImageWMS({//fuente de datos (ImageWMS)
+                    url: URL_OGC,
+                    params: {LAYERS: 'rn11_untramo'}//por defecto version WMS = 1.3.0
+                    })
+                })      
+      var rn11_sumatoria= new ol.layer.Image({//objeto capa de tipo Imagen (1 sola imagen)
+                title: "rn11_sumatoria",
+                visible: false,
+                source: new ol.source.ImageWMS({//fuente de datos (ImageWMS)
+                    url: URL_OGC,
+                    params: {LAYERS: 'rn11_sumatoria'}//por defecto version WMS = 1.3.0
+                    })
                 })  
+      var cantidadhabitantes= new ol.layer.Image({//objeto capa de tipo Imagen (1 sola imagen)
+                title: "cantidadhabitantes",
+                visible: false,
+                source: new ol.source.ImageWMS({//fuente de datos (ImageWMS)
+                    url: URL_OGC,
+                    params: {LAYERS: 'cantidadhabitantes'}//por defecto version WMS = 1.3.0
+                    })
+                })  
+      var capausuario= new ol.layer.Image({//objeto capa de tipo Imagen (1 sola imagen)
+                title: "capausuario",
+                visible: true,
+                source: new ol.source.ImageWMS({//fuente de datos (ImageWMS)
+                    url: URL_OGC,
+                    params: {LAYERS: 'capausuario'}//por defecto version WMS = 1.3.0
+                    })
+                })  
+            

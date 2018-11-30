@@ -1,0 +1,36 @@
+<?php
+$link= pg_connect("host=127.0.0.1 user=user password=user dbname=DBTPI");
+
+$query=<<<EOD
+SELECT canthab_su, distance FROM cantidadhabitantes
+EOD;
+
+$result = pg_query($query);
+
+echo "La consulta realizada fue: ", $query; 
+echo "<br/>";
+echo "<br/>";
+echo "<br/>";
+$row = pg_fetch_row($result);
+echo "La cantidad de habitantes a ", round($row[1])," metros de la RN 11 es: ", round($row[0]);
+echo "<br/>";
+$row = pg_fetch_row($result);
+echo "La cantidad de habitantes a ", round($row[1])," metros de la RN 11 es: ", round($row[0]);
+echo "<br/>";
+echo "<br/>";
+echo "<br/>";
+echo "<br/>";
+echo "<br/>";
+$query=<<<EOD
+SELECT longitud FROM rn11_sumatoria
+EOD;
+$result = pg_query($query);
+$row = pg_fetch_row($result);
+echo "La consulta realizada fue: ", $query;
+echo "<br/>";
+echo "<br/>";
+echo "<br/>";
+echo "<br/>";
+echo "La longitud de la Ruta Nacional 11 es de: ",round($row[0]/1000,3)," Km";
+
+?>

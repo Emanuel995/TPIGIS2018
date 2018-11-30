@@ -8,47 +8,16 @@
 <script src="ol4/build/ol.js" type="text/javascript"></script>
 <script src="url.js" type="text/javascript"></script>
 <script src="GenerarVarCapas.js"></script>
-
-<style>
-    /* selector CSS #map: selecciona cualquier elemento con id="map" */
-    #map {
-        height: 600px;	/* alto del elemento = 400px */
-        width: 1200px;	/* ancho del elemento = 100% de su elemento contenedor */
-        border: 1px solid; /* borde 1px */
-        padding-right: 1%;
-        padding-right: 1%;
-    }
-    .divScroll {
-        overflow:scroll;
-        height:450px;
-        width:275px;
-    }
-    .flex-container {
-        display: flex;
-        align-items: stretch;
-    }
-    .flex-container > div {
-        width: 3000px;
-        padding-left: 2%;
-    }
-    #Encabezado{
-        max-width: 5000px !important;
-        max-height: 75px !important;
-        padding-top: 1%;
-    }
-    #Pie{
-        max-width: 5000px !important;
-        max-height: 70px !important;
-        padding-top:2%;
-        padding-bottom:2%;
-    }
-</style>
+<script src="ol4/ol/ol/control.js"></script>
+<script src="medir.js"></script>
+<link rel="stylesheet" href="estilos.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <title>Trabajo Practico Integrador GIS 2018</title>
+
 <div id = "Encabezado" class = "jumbotron bg-secondary text-white">
     <h1 class="align-top"><img src="imagenes/soyelmapa.jpeg" width="75" height="75"> Trabajo Practico Integrador GIS 2018 - UTN FRRe</h1>
 </div>
 </head>
-
 <body class="bg-secondary">
 <!-- DIV que contiene el mapa -->
 <div class="flex-container">
@@ -73,8 +42,29 @@
                         value="consulta"
                         onchange="seleccionarControl(this)"
                         > <label for="controles_consulta"> Consulta</label><br/>
+                        <form class="form" style="display:inline" id="capaConsulta">
+                          <label>Capa</label>
+                          <select id="capa">
+                            <option value="red_vial">Red Vial</option>
+                            <option value="espejo_de_agua_hid">Espejos de Agua</option>
+                            <option value="veg_cultivos">Vegetacion Cultivos</option>
+                            <option value="veg_arborea">Vegetacion Arborea</option>
+                            <option value="veg_hidrofila">Vegetacion Hidrofila</option>
+                          </select>
+                        </form><br/>              
+                    
+                    <input type=checkbox id=Medir onclick=myFunction()><label>Medir</label><br/>
+                        <form class="form" style="display:none" id="TipoMedida">
+                            <label>Tipo</label>
+                            <select id="type">
+                              <option value="length">Longitud - Linea</option>
+                              <option value="area">Area - Poligono</option>
+                            </select>
+                        </form><br/>                    
                     <h3>Capas</h3>
                     <div class="divScroll">
+                        <input type=checkbox id="capachaco"  onclick=capasChaco()><label for="capachaco">Capa Chaco</label><br/>
+                        <input type=checkbox id="capausuario" checked="checked" onclick=capaUsuario()><label for="capachaco">Capa Usuario</label><br/>
                     <script>
                         //Cargamos la capas
                         for (i = 0; i < TituloCapas.length; i++){ 
@@ -86,86 +76,318 @@
                         }
                     </script>
                     </div>
-        
                 </div>
-        <div class="flex-grow: 8 bg-white" id="map" ></div>
+        <div class="flex-grow: 8 bg-white" id="map" onclick="clickMapa()"></div>
         
     </div>
 </div>
+<div id="mouse-position"></div>
+<button type="button" class="btn btn-info" onclick="mostrarLeyenda()">Leyendas</button>
+<div class="container">
+    <div id="leyenda" style="display:inline" >
+      <img id ="imagen1" style="display:none" src="http://localhost/cgi-bin/qgis_mapserv.fcgi?map=/var/www/html/TrabajoPracticoIntegrador/TrabajoPracticoIntegrador.qgz&SERVICE=WMS&Request=GetLegendGraphics&LAYERS=espejo_de_agua_hid&Format=image/png">
+      <img id ="imagen2" style="display:none" src="http://localhost/cgi-bin/qgis_mapserv.fcgi?map=/var/www/html/TrabajoPracticoIntegrador/TrabajoPracticoIntegrador.qgz&SERVICE=WMS&Request=GetLegendGraphics&LAYERS=red_vial&Format=image/png">
+      <img id ="imagen3" style="display:none" src="http://localhost/cgi-bin/qgis_mapserv.fcgi?map=/var/www/html/TrabajoPracticoIntegrador/TrabajoPracticoIntegrador.qgz&SERVICE=WMS&Request=GetLegendGraphics&LAYERS=veg_hidrofila&Format=image/png">
+      <img id ="imagen4" style="display:none" src="http://localhost/cgi-bin/qgis_mapserv.fcgi?map=/var/www/html/TrabajoPracticoIntegrador/TrabajoPracticoIntegrador.qgz&SERVICE=WMS&Request=GetLegendGraphics&LAYERS=veg_cultivos&Format=image/png">
+      <img id ="imagen5" style="display:none" src="http://localhost/cgi-bin/qgis_mapserv.fcgi?map=/var/www/html/TrabajoPracticoIntegrador/TrabajoPracticoIntegrador.qgz&SERVICE=WMS&Request=GetLegendGraphics&LAYERS=veg_arborea&Format=image/png">
+      <img id ="imagen6" style="display:none" src="http://localhost/cgi-bin/qgis_mapserv.fcgi?map=/var/www/html/TrabajoPracticoIntegrador/TrabajoPracticoIntegrador.qgz&SERVICE=WMS&Request=GetLegendGraphics&LAYERS=areadecobertura&Format=image/png">
+      <img id ="imagen7" style="display:none" src="http://localhost/cgi-bin/qgis_mapserv.fcgi?map=/var/www/html/TrabajoPracticoIntegrador/TrabajoPracticoIntegrador.qgz&SERVICE=WMS&Request=GetLegendGraphics&LAYERS=rn11_untramo&Format=image/png">
+      <img id ="imagen8" style="display:none" src="http://localhost/cgi-bin/qgis_mapserv.fcgi?map=/var/www/html/TrabajoPracticoIntegrador/TrabajoPracticoIntegrador.qgz&SERVICE=WMS&Request=GetLegendGraphics&LAYERS=localidades_chaco&Format=image/png">
+
+    </div>
+  </div>
 
 <div id = "Pie" class="jumbotron  bg-secondary text-white" >
     <h5 class="font-weight-bold text-center" class="d-flex align-items-center justify-content-center"> BEJARANO Evelyn -- GUOUMAN Emiliano -- HUERGA Emanuel</h5>
 </div>
 <script>
 
+
+var mousePositionControl = new ol.control.MousePosition({
+    coordinateFormat: ol.coordinate.createStringXY(6),
+    projection: 'EPSG:4326',
+    // comment the following two lines to have the mouse position
+    // be placed within the map.
+    className: 'custom-mouse-position',
+    target: document.getElementById('mouse-position'), 
+    undefinedHTML: '&nbsp;'
+});
+  
+var scaleLineControl = new ol.control.ScaleLine();
+scaleLineControl.setUnits("metric");
+
 // definicion del mapa y su capa
-        var map = new ol.Map({
-            target: 'map',                
-            layers: [
-                new ol.layer.Tile({
-                    title: "Natural Earth Base Map",
-                    source: new ol.source.TileWMS({
-                        url: URL_OGC,
-                        params: {//parametros del servicio WMS
-                            LAYERS: 'pais_lim', //capa(s) del servicio WMS
-                            VERSION: '1.1.1' //version del estandar WMS
-                        }
-                    })
-                }),
-                    puente_red_vial_puntos,
-                    puntos_de_alturas_topograficas,
-                    puntos_del_terreno,
-                    salvado_de_obstaculo,
-                    senalizaciones,
-                    otras_edificaciones,
-                    estructuras_portuarias,
-                    infraestructura_aeroportuaria_punto,
-                    infraestructura_hidro,
-                    actividades_agropecuarias,
-                    actividades_economicas,
-                    complejo_de_energia_ene,
-                    edif_construcciones_turisticas,
-                    edif_depor_y_esparcimiento,
-                    edif_educacion,
-                    edif_religiosos,
-                    edificio_de_salud_ips,
-                    edificio_publico_ips,
-                    edificios_ferroviarios,
-                    localidades,
-                    marcas_y_senales,
-                    obra_de_comunicacion,
-                    obra_portuaria,
-                    red_ferroviaria,
-                    red_vial,
-                    vias_secundarias,
-                    curso_de_agua_hid,
-                    curvas_de_nivel,
-                    lineas_de_conduccion_ene,
-                    muro_embalse,
-                    limite_politico_administrativo_lim,
-                    espejo_de_agua,
-                    ejido,
-                    isla,
-                    sue_congelado,
-                    sue_consolidado,
-                    sue_costero,
-                    sue_hidromorfologico,
-                    sue_no_consolidado,
-                    veg_arborea,
-                    veg_arbustiva,
-                    veg_cultivos,
-                    veg_hidrofila,
-                    veg_suelo_desnudo
-            ],
-            view: new ol.View({
-                projection: 'EPSG:4326',
-                center: [-60, -26.5],
-                zoom: 7
-             })
-         });
-        
+</script>
+<script> source = new ol.source.Vector();
+var vector = new ol.layer.Vector({
+  source: source,
+  style: new ol.style.Style({
+    fill: new ol.style.Fill({
+      color: 'rgba(255, 255, 255, 0.2)'
+    }),
+    stroke: new ol.style.Stroke({
+      color: '#ffcc33',
+      width: 2
+    }),
+    image: new ol.style.Circle({
+      radius: 7,
+      fill: new ol.style.Fill({
+        color: '#ffcc33'
+      })
+    })
+  })
+});
+</script>
+<script src="mapaycapas.js"></script>
+<div id="mouse-position"></div>
+<script>
+
+map.on('pointermove', pointerMoveHandler);
+
+map.getViewport().addEventListener('mouseout', function() {
+  helpTooltipElement.classList.add('hidden');
+});
+
+var typeSelect = document.getElementById('type');
+var draw;
+var formatLength = function(line) {
+  var length = ol.Sphere.getLength(line);
+  var output;
+  if (length > 100) {
+    output = (Math.round(length / 1000 * 100)) +
+        ' ' + 'Km';
+  } else {
+    output = (Math.round(length * 100)) +
+        ' ' + 'Km';
+  }
+  return output;
+};
+
+
+/**
+ * Format area output.
+ * @param {ol.geom.Polygon} polygon The polygon.
+ * @return {string} Formatted area.
+ */
+var formatArea = function(polygon) {
+  var area = ol.Sphere.getArea(polygon);
+  var output;
+  if (area > 10000) {
+    output = (Math.round(area / 1000000 * 100)) +
+        ' ' + 'km<sup>2</sup>';
+  } else {
+    output = (Math.round(area * 100000)) +
+        ' ' + 'Km<sup>2</sup>';
+  }
+  return output;
+};
+
+function addInteraction() {
+  var type = (typeSelect.value == 'area' ? 'Polygon' : 'LineString');
+  draw = new ol.interaction.Draw({
+    source: source,
+    type: /** @type {ol.geom.GeometryType} */ (type),
+    style: new ol.style.Style({
+      fill: new ol.style.Fill({
+        color: 'rgba(255, 255, 255, 0.2)'
+      }),
+      stroke: new ol.style.Stroke({
+        color: 'rgba(0, 0, 0, 0.5)',
+        lineDash: [10, 10],
+        width: 2
+      }),
+      image: new ol.style.Circle({
+        radius: 5,
+        stroke: new ol.style.Stroke({
+          color: 'rgba(0, 0, 0, 0.7)'
+        }),
+        fill: new ol.style.Fill({
+          color: 'rgba(255, 255, 255, 0.2)'
+        })
+      })
+    })
+  });
+  map.addInteraction(draw);
+
+  createMeasureTooltip();
+  createHelpTooltip();
+
+  var listener;
+  draw.on('drawstart',
+      function(evt) {
+        // set sketch
+        sketch = evt.feature;
+
+        /** @type {ol.Coordinate|undefined} */
+        var tooltipCoord = evt.coordinate;
+
+        listener = sketch.getGeometry().on('change', function(evt) {
+          var geom = evt.target;
+          var output;
+          if (geom instanceof ol.geom.Polygon) {
+            output = formatArea(geom);
+            tooltipCoord = geom.getInteriorPoint().getCoordinates();
+          } else if (geom instanceof ol.geom.LineString) {
+            output = formatLength(geom);
+            tooltipCoord = geom.getLastCoordinate();
+          }
+          measureTooltipElement.innerHTML = output;
+          measureTooltip.setPosition(tooltipCoord);
+        });
+      }, this);
+
+  draw.on('drawend',
+      function() {
+        measureTooltipElement.className = 'tooltip tooltip-static';
+        measureTooltip.setOffset([0, -7]);
+        // unset sketch
+        sketch = null;
+        // unset tooltip so that a new one can be created
+        measureTooltipElement = null;
+        createMeasureTooltip();
+        ol.Observable.unByKey(listener);
+      }, this);
+}
+
+
+/**
+ * Creates a new help tooltip
+ */
+function createHelpTooltip() {
+  if (helpTooltipElement) {
+    helpTooltipElement.parentNode.removeChild(helpTooltipElement);
+  }
+  helpTooltipElement = document.createElement('div');
+  helpTooltipElement.className = 'tooltip hidden';
+  helpTooltip = new ol.Overlay({
+    element: helpTooltipElement,
+    offset: [15, 0],
+    positioning: 'center-left'
+  });
+  map.addOverlay(helpTooltip);
+}
+
+
+/**
+ * Creates a new measure tooltip
+ */
+function createMeasureTooltip() {
+  if (measureTooltipElement) {
+    measureTooltipElement.parentNode.removeChild(measureTooltipElement);
+  }
+  measureTooltipElement = document.createElement('div');
+  measureTooltipElement.className = 'tooltip tooltip-measure';
+  measureTooltip = new ol.Overlay({
+    element: measureTooltipElement,
+    offset: [0, -15],
+    positioning: 'bottom-center'
+  });
+  map.addOverlay(measureTooltip);
+}
+
+
+/**
+ * Let user change the geometry type.
+ */
+typeSelect.onchange = function() {
+  map.removeInteraction(draw);
+  addInteraction();
+};
+addInteraction();
+
+map.removeInteraction(draw);
+map.removeOverlay(helpTooltip);
+map.removeOverlay(measureTooltip);
+TipoMedida.style.display = "none";
+
+function myFunction() {
+var checkBox = document.getElementById("Medir");
+var TipoMedida = document.getElementById("TipoMedida");
+if (checkBox.checked == true){
+map.addInteraction(draw);
+map.addOverlay(helpTooltip);
+map.addOverlay(measureTooltip);
+TipoMedida.style.display = "inline";
+} else {
+map.removeInteraction(draw);
+map.removeOverlay(helpTooltip);
+map.removeOverlay(measureTooltip);
+TipoMedida.style.display = "none";
+}
+}
+
+function capasChaco(){
+    var checkboxChaco = document.getElementById("capachaco");
+    if (checkboxChaco.checked !== localidades_chaco.getVisible){
+        localidades_chaco.setVisible(checkboxChaco.checked);
+        rn11_untramo.setVisible(checkboxChaco.checked);
+        rn11_sumatoria.setVisible(checkboxChaco.checked);
+        areadecobertura.setVisible(checkboxChaco.checked);
+        cantidadhabitantes.setVisible(checkboxChaco.checked);
+    }
+    if(checkboxChaco.checked == true){
+        window.open("consultaChaco.php");
+    }
+}
+function capaUsuario() {
+  var checkboxUsuario = document.getElementById("capausuario");
+  if (checkboxUsuario !== capausuario.getVisible){
+    capausuario.setVisible(checkboxUsuario.checked);
+  }
+}
+
+function clickMapa(){
+  var checkboxUsuario = document.getElementById("capausuario");
+  if (checkboxUsuario.checked == true){
+    var coord = "";
+    var texto = document.getElementById("mouse-position");
+    var coordenadas = texto.textContent;
+    var detalle = prompt("Ingresar detalle del punto");
+    for (i=0; i<coordenadas.length;i++){
+      if (coordenadas[i] !== ","){
+        coord = coord + coordenadas[i];
+      }
+    }
+    if (detalle !== null){
+      window.open("insertarPunto.php?coordenada="+coord+"&detalle="+detalle);
+      console.log(detalle);
+      //location.reload(); 
+      capausuario.setVisible = true;
+    } else{
+      alert("cancelado");
+    }
+  }
+}
+
+function mostrarLeyenda(){
+
+  if (imagen1.style.display == "none"){
+    imagen1.style.display = "inline";
+    imagen2.style.display = "inline";
+    imagen3.style.display = "inline";
+    imagen4.style.display = "inline";
+    imagen5.style.display = "inline";
+    imagen6.style.display = "inline";
+    imagen7.style.display = "inline";
+    imagen8.style.display = "inline";
+    }else{
+    imagen1.style.display = "none";
+    imagen2.style.display = "none";
+    imagen3.style.display = "none";
+    imagen4.style.display = "none";
+    imagen5.style.display = "none";
+    imagen6.style.display = "none";
+    imagen7.style.display = "none";
+    imagen8.style.display = "none";
+  }
+}
+        //
          //function que va a realizar la peticion de la consulta
         var consultar = function(coordinate){
+            var indice = document.getElementById("capa").selectedIndex;
+            var opciones = document.getElementById("capa").options;
+            alert("La consulta se realizara sobre la capa: " + opciones[indice].text);
+            var capa = opciones[indice].value;
             console.log(coordinate);
             if(coordinate.length==2){
                 //es un punto [lon,lat]
@@ -179,7 +401,7 @@
                 wkt+=coordinate[0][0][0]+' '+coordinate[0][0][1]+'))'
             }
             console.log(wkt);
-            window.open('consulta.php?wkt='+wkt);return;
+            window.open('consulta.php?wkt='+wkt+'&capa='+capa);return; // "www.tuDestino.com/index.html" + "?" + "var1=" + val1 + "&" + "var2=" + val2;
                 // jQuery.ajax({
                 //     url:'consulta.php',
                 //     method: 'GET',

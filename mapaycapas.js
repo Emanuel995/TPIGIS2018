@@ -4,7 +4,7 @@ var map = new ol.Map({
     collapsible: false
     }
     }).extend([
-   scaleLineControl
+   scaleLineControl, mousePositionControl
 ]),
     target: 'map',                
     layers: [vector,
@@ -17,7 +17,12 @@ var map = new ol.Map({
                     VERSION: '1.1.1' //version del estandar WMS
                 }
             })
-        }),
+        }), capausuario,
+            localidades_chaco,
+            areadecobertura,
+            rn11_untramo,
+            rn11_sumatoria,
+            cantidadhabitantes,
             puente_red_vial_puntos,
             puntos_de_alturas_topograficas,
             puntos_del_terreno,

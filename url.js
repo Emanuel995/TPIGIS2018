@@ -1,1 +1,2 @@
-var URL_OGC = '/cgi-bin/qgis_mapserv.fcgi?map=/home/user/Trabajo Practico Integrador/TrabajoPracticoIntegrador.qgz'
+var URL_OGC = '/cgi-bin/qgis_mapserv.fcgi?map=/var/www/html/TrabajoPracticoIntegrador/TrabajoPracticoIntegrador.qgz'
+//wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=topp:states

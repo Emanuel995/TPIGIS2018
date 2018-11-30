@@ -28,3 +28,22 @@ Configuracion WMS/WMTS
 
 
 SIMBOLOGIA
+
+
+PARTE B DEL TrabajoPracticoIntegrador
+tenemos que identificar primero la RUTA 12 - Corrientes
+para trabajar con medidas es mejor pasar a coordenadas planas FOSGAR FAJA 5 para Ctes
+hay que filtrar cada capa e ir guardando de forma temporal
+clip para recortar
+sum line para sumar longitud de lineas
+buffer para calcular la cantidad de poblacion en funcion de la ruta
+buffer multi ring
+join summari 
+line intersection 
+
+informe = paso a paso 
+layout manager para imprimir el mapa
+
+agregar leyendas al mapa en los checkbox - icono que aparece en QGIS WMS trae una funcion que es GETleyendGraphic
+29 el proyecto
+13 dic lo otro B C 
